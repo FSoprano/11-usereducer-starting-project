@@ -3,7 +3,7 @@ import Card from "../UI/Card/Card";
 import Input from '../UI/Input/Input';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
-// import AuthContext from '../../context/auth-content';
+import AuthContext from '../../context/auth-content';
 
 // Reducer function defined outside of the component function;
 // This is possible because the reducer function does not need 
@@ -112,7 +112,7 @@ const Login = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
     if (formIsValid) {
-      props.onLogin(emailState.value, passwordState.value);
+      AuthContext.onLogin(emailState.value, passwordState.value);
     } else if (!passwordIsValid){
       emailInputRef.current.focus();
     } else {
@@ -149,7 +149,6 @@ const Login = (props) => {
             Login
           </Button>
         </div>
-
       </form>
     </Card>
         
