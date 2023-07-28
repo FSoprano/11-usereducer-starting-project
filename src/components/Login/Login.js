@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useReducer, useRef } from 'react';
+import React, { useState, useEffect, useReducer, useContext, useRef } from 'react';
 import Card from "../UI/Card/Card";
 import Input from '../UI/Input/Input';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
 import AuthContext from '../../context/auth-content';
+// import AuthContext from '../../context/auth-content';
 
 // Reducer function defined outside of the component function;
 // This is possible because the reducer function does not need 
@@ -38,6 +39,7 @@ const Login = (props) => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const [formIsValid, setFormIsValid] = useState(false);
+  const ctx = useContext(AuthContext);
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
     value: '',
@@ -108,11 +110,11 @@ const Login = (props) => {
     // setPasswordIsValid(enteredPassword.trim().length > 6);
     dispatchPassword({type: 'INPUT_BLUR'});
   };
-
+  
   const submitHandler = (event) => {
     event.preventDefault();
     if (formIsValid) {
-      AuthContext.onLogin(emailState.value, passwordState.value);
+      ctx.onLogin(emailState.value, passwordState.value);
     } else if (!passwordIsValid){
       emailInputRef.current.focus();
     } else {
